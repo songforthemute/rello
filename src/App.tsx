@@ -1,6 +1,13 @@
 import GlobalStyle from "./GlobalStyle";
-import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import {
+    DragDropContext,
+    Draggable,
+    Droppable,
+    DropResult,
+} from "react-beautiful-dnd";
 import styled from "styled-components";
+import { useRecoilState } from "recoil";
+import { toDoState } from "./components/atoms";
 
 const Wrapper = styled.div`
     display: flex;
@@ -33,10 +40,18 @@ const Card = styled.div`
     background-color: ${(props) => props.theme.cardColor};
 `;
 
-const toDos = ["Apple", "Banana", "Chocolate", "Django", "Eclair"];
-
 function App() {
-    const _onDragEnd = () => {};
+    const [toDos, setToDos] = useRecoilState(toDoState);
+    const _onDragEnd = ({ draggableId, destination, source }: DropResult) => {
+        if (!destination) return;
+
+        setToDos((current) => {
+            const copied = [...current];
+            copied.splice(source?.index, 1); // del item from source
+            copied.splice(destination?.index, 0, draggableId); // add item to destination
+            return copied;
+        });
+    };
 
     return (
         <>
@@ -52,7 +67,7 @@ function App() {
                                 >
                                     {toDos.map((toDo, index) => (
                                         <Draggable
-                                            key={index}
+                                            key={toDo}
                                             draggableId={toDo}
                                             index={index}
                                         >
