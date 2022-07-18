@@ -32,11 +32,10 @@ const GlobalStyle = createGlobalStyle`
     }
     body {
         line-height: 1.65;
-        font-weight: 300;
+        font-weight: 400;
         font-family: 'Roboto Slab', serif;
         background-color: ${(props) => props.theme.bgColor};
-        color: ${(props) => props.theme.txtColor};
-        letter-spacing: 0.1px;
+        color: #252525;
     }
     menu, ol, ul {
         list-style: none;
