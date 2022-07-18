@@ -7,6 +7,7 @@ const Card = styled.div`
     margin-bottom: 5px;
     padding: 10px 10px;
     background-color: ${(props) => props.theme.cardColor};
+    box-shadow: ${(props) => props.theme.boxShadow};
 `;
 
 interface InterfaceDraggableCardProps {

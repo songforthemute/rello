@@ -1,14 +1,14 @@
 import { atom, selector } from "recoil";
 
-export const toDoState = atom({
+interface InterfaceToDoState {
+    [key: string]: string[];
+}
+
+export const toDoState = atom<InterfaceToDoState>({
     key: `toDo/${crypto.randomUUID()}`,
-    default: [
-        "Cupcake",
-        "Donut",
-        "Eclair",
-        "Frozen Yogurt",
-        "Gingerbread",
-        "Honeycomb",
-        "Ice Cream Sandwich",
-    ],
+    default: {
+        "To Do": ["Cupcake", "Donut", "Eclair"],
+        Doing: ["Frozen Yogurt", "Gingerbread"],
+        Done: ["Honeycomb", "Ice Cream Sandwich"],
+    },
 });
