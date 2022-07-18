@@ -1,13 +1,9 @@
 import GlobalStyle from "./GlobalStyle";
-import {
-    DragDropContext,
-    Draggable,
-    Droppable,
-    DropResult,
-} from "react-beautiful-dnd";
+import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
 import styled from "styled-components";
 import { useRecoilState } from "recoil";
 import { toDoState } from "./components/atoms";
+import DraggableCard from "./components/DraggableCard";
 
 const Wrapper = styled.div`
     display: flex;
@@ -31,13 +27,6 @@ const Board = styled.div`
     background-color: ${(props) => props.theme.boardColor};
     border-radius: 5px;
     min-height: 200px;
-`;
-
-const Card = styled.div`
-    border-radius: 5px;
-    margin-bottom: 5px;
-    padding: 10px 10px;
-    background-color: ${(props) => props.theme.cardColor};
 `;
 
 function App() {
@@ -66,21 +55,11 @@ function App() {
                                     {...provided.droppableProps}
                                 >
                                     {toDos.map((toDo, index) => (
-                                        <Draggable
+                                        <DraggableCard
                                             key={toDo}
-                                            draggableId={toDo}
+                                            toDo={toDo}
                                             index={index}
-                                        >
-                                            {(provided) => (
-                                                <Card
-                                                    ref={provided.innerRef}
-                                                    {...provided.draggableProps}
-                                                    {...provided.dragHandleProps}
-                                                >
-                                                    {toDo}
-                                                </Card>
-                                            )}
-                                        </Draggable>
+                                        />
                                     ))}
                                     {provided.placeholder}
                                 </Board>
