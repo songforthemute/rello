@@ -35,8 +35,11 @@ const App = () => {
         if (destination.droppableId === source.droppableId) {
             setToDos((current) => {
                 const copiedBoard = [...current[source.droppableId]];
+                const copiedCard = copiedBoard[source.index];
+
                 copiedBoard.splice(source.index, 1); // del item from source
-                copiedBoard.splice(destination.index, 0, draggableId); // add item to destination
+                copiedBoard.splice(destination.index, 0, copiedCard); // add item to destination
+
                 return { ...current, [destination.droppableId]: copiedBoard };
             });
         }
@@ -44,14 +47,17 @@ const App = () => {
         // 보드 간 이동
         if (destination.droppableId !== source.droppableId) {
             setToDos((current) => {
-                const fromBoard = [...current[source.droppableId]];
-                const toBoard = [...current[destination.droppableId]];
-                fromBoard.splice(source.index, 1);
-                toBoard.splice(destination.index, 0, draggableId);
+                const sourceBoard = [...current[source.droppableId]];
+                const sourceCard = sourceBoard[source.index];
+                const destinationBoard = [...current[destination.droppableId]];
+
+                sourceBoard.splice(source.index, 1);
+                destinationBoard.splice(destination.index, 0, sourceCard);
+
                 return {
                     ...current,
-                    [source.droppableId]: fromBoard,
-                    [destination.droppableId]: toBoard,
+                    [source.droppableId]: sourceBoard,
+                    [destination.droppableId]: destinationBoard,
                 };
             });
         }

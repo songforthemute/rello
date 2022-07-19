@@ -17,7 +17,8 @@ const Card = styled.div<InterfaceCardProps>`
 `;
 
 interface InterfaceDraggableCardProps {
-    toDo: string;
+    cardId: number;
+    payload: string;
     index: number;
 }
 
@@ -29,9 +30,13 @@ interface InterfaceDraggableCardProps {
     - React.memo는 ReactJS에 props가 바뀌지 않는다면 컴포넌트의 re-rendering 하지 않게함.
 */
 
-const DraggableCard = ({ toDo, index }: InterfaceDraggableCardProps) => {
+const DraggableCard = ({
+    payload,
+    cardId,
+    index,
+}: InterfaceDraggableCardProps) => {
     return (
-        <Draggable key={toDo} draggableId={toDo} index={index}>
+        <Draggable draggableId={cardId.toString()} index={index}>
             {(provided, snapshot) => (
                 <Card
                     isDragging={snapshot.isDragging}
@@ -39,7 +44,7 @@ const DraggableCard = ({ toDo, index }: InterfaceDraggableCardProps) => {
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
                 >
-                    {toDo}
+                    {payload}
                 </Card>
             )}
         </Draggable>
