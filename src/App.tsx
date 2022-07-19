@@ -23,7 +23,7 @@ const Boards = styled.div`
     gap: 15px;
 `;
 
-function App() {
+const App = () => {
     const [toDos, setToDos] = useRecoilState(toDoState);
     const _onDragEnd = (info: DropResult) => {
         const { destination, source, draggableId } = info;
@@ -71,6 +71,6 @@ function App() {
             </DragDropContext>
         </>
     );
-}
+};
 
 export default App;

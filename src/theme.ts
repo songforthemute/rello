@@ -5,5 +5,5 @@ export const theme: DefaultTheme = {
     accentColor: "#FFDE03",
     cardColor: "#FFFFFF",
     boardColor: "#DADFE9",
-    boxShadow: "2px 2px 8px -2px rgba(0, 0, 0, 0.9)",
+    boxShadow: "2px 2px 10px -2px rgba(0, 0, 0, 0.9)",
 };
