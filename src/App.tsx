@@ -26,7 +26,7 @@ const Boards = styled.div`
 const App = () => {
     const [toDos, setToDos] = useRecoilState(toDoState);
     const _onDragEnd = (info: DropResult) => {
-        const { destination, source, draggableId } = info;
+        const { destination, source } = info;
 
         // 목적지 X
         if (!destination) return;

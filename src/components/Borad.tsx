@@ -1,7 +1,8 @@
 import { Droppable } from "react-beautiful-dnd";
 import { useForm } from "react-hook-form";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { InterfaceToDo } from "./atoms";
+import { InterfaceToDo, toDoState } from "./atoms";
 import DraggableCard from "./DraggableCard";
 
 const Wrapper = styled.div`
@@ -56,9 +57,19 @@ interface InterfaceForm {
 }
 
 const Board = ({ toDos, boardId }: InterfaceBoardProps) => {
+    const setToDos = useSetRecoilState(toDoState);
     const { register, setValue, handleSubmit } = useForm<InterfaceForm>();
+
     const onValid = ({ toDo }: InterfaceForm) => {
+        const newCard: InterfaceToDo = {
+            id: Date.now(),
+            payload: toDo,
+        };
+
         setValue("toDo", "");
+        setToDos((current) => {
+            return { ...current, [boardId]: [...current[boardId], newCard] };
+        });
     };
 
     return (
