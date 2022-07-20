@@ -104,6 +104,10 @@ const Board = ({ toDos, boardId }: InterfaceBoardProps) => {
     const [newTitle, setNewTitle] = useState("");
     const setToDos = useSetRecoilState(toDoState);
     const { register, setValue, handleSubmit } = useForm<InterfaceForm>();
+    const titleInputRef = useRef<HTMLInputElement>(null);
+    const toDoInputRef = useRef<HTMLInputElement | null>(null);
+    const { ref, ...rest } = register("toDo", { required: true });
+
     const onValid = ({ toDo }: InterfaceForm) => {
         const newCard: InterfaceToDo = {
             id: Date.now(),
@@ -115,8 +119,6 @@ const Board = ({ toDos, boardId }: InterfaceBoardProps) => {
             return { ...current, [boardId]: [...current[boardId], newCard] };
         });
     };
-    const titleInputRef = useRef<HTMLInputElement>(null);
-    const toDoInputRef = useRef<HTMLInputElement>(null);
 
     const _onClickTitleInput = () => {
         // inputRef.current!.style.width = "100%";
@@ -174,8 +176,11 @@ const Board = ({ toDos, boardId }: InterfaceBoardProps) => {
             </Form>
             <Form onSubmit={handleSubmit(onValid)}>
                 <Input
-                    {...register("toDo", { required: true })}
-                    ref={toDoInputRef}
+                    {...rest}
+                    ref={(e) => {
+                        ref(e);
+                        toDoInputRef.current = e;
+                    }}
                     type="hidden"
                     placeholder={`Add task on ${boardId}`}
                 />
