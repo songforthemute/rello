@@ -1,9 +1,10 @@
 import GlobalStyle from "./GlobalStyle";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import styled from "styled-components";
-import { useRecoilState } from "recoil";
-import { toDoState } from "./components/atoms";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { LOCAL_KEY, toDoState } from "./components/atoms";
 import Board from "./components/Borad";
+import { useEffect } from "react";
 
 const Wrapper = styled.div`
     display: flex;
@@ -24,6 +25,7 @@ const Boards = styled.div`
 `;
 
 const App = () => {
+    const localToDos = useRecoilValue(toDoState);
     const [toDos, setToDos] = useRecoilState(toDoState);
     const _onDragEnd = (info: DropResult) => {
         const { destination, source } = info;
@@ -62,6 +64,11 @@ const App = () => {
             });
         }
     };
+
+    useEffect(() => {
+        localStorage.setItem(LOCAL_KEY, JSON.stringify(localToDos));
+        console.log(localToDos);
+    }, [localToDos]);
 
     return (
         <>
