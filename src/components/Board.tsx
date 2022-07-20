@@ -1,8 +1,9 @@
+import { ChangeEvent, FormEvent, useRef, useState } from "react";
 import { Droppable } from "react-beautiful-dnd";
 import { useForm } from "react-hook-form";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { InterfaceToDo, toDoState } from "./atoms";
+import { InterfaceToDo, InterfaceToDoState, toDoState } from "./atoms";
 import DraggableCard from "./DraggableCard";
 
 const Wrapper = styled.div`
@@ -21,6 +22,25 @@ const Title = styled.h2`
     font-weight: 600;
     margin-bottom: 10px;
     font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    button {
+        cursor: pointer;
+        background-color: transparent;
+        margin-left: 10px;
+        border: none;
+        border-radius: 20px;
+        height: 25px;
+        width: 25px;
+        text-align: center;
+        padding: auto;
+        transition: box-shadow 0.35s ease-in-out;
+        &:hover,
+        &:focus {
+            box-shadow: inset ${(props) => props.theme.boxShadow};
+        }
+    }
 `;
 
 interface InterfaceAreaProps {
@@ -43,18 +63,33 @@ const Area = styled.div<InterfaceAreaProps>`
 const Form = styled.form`
     width: 260px;
     margin: 0 auto;
-    position: relative;
-    input {
-        width: 50%;
-        border: none;
-        border-radius: 20px;
-        padding: 10px 10px;
-        transition: all 0.35s ease-in-out;
-        &:focus,
-        &:hover {
-            width: 100%;
-            box-shadow: inset ${(props) => props.theme.boxShadow};
-        }
+`;
+
+const Input = styled.input`
+    width: 50%;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 10px;
+    transition: all 0.35s ease-in-out;
+    &:focus,
+    &:hover {
+        width: 100%;
+        box-shadow: inset ${(props) => props.theme.boxShadow};
+    }
+`;
+
+const TitleInput = styled.input`
+    width: 50%;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 10px;
+    transition: all 0.35s ease-in-out;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    &:focus,
+    &:hover {
+        width: 90%;
+        box-shadow: inset ${(props) => props.theme.boxShadow};
     }
 `;
 
@@ -68,9 +103,9 @@ interface InterfaceForm {
 }
 
 const Board = ({ toDos, boardId }: InterfaceBoardProps) => {
+    const [newTitle, setNewTitle] = useState("");
     const setToDos = useSetRecoilState(toDoState);
     const { register, setValue, handleSubmit } = useForm<InterfaceForm>();
-
     const onValid = ({ toDo }: InterfaceForm) => {
         const newCard: InterfaceToDo = {
             id: Date.now(),
@@ -82,12 +117,54 @@ const Board = ({ toDos, boardId }: InterfaceBoardProps) => {
             return { ...current, [boardId]: [...current[boardId], newCard] };
         });
     };
+    const inputRef = useRef<HTMLInputElement>(null);
+    const _onClick = () => {
+        // inputRef.current!.style.width = "100%";
+        if (inputRef.current!.type === "text")
+            inputRef.current!.type = "hidden";
+        else inputRef.current!.type = "text";
+    };
+
+    const _onChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const { value } = e.currentTarget;
+        setNewTitle(value);
+    };
+
+    const _onSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        setToDos((current) => {
+            const copiedState = { ...current };
+            const result: InterfaceToDoState = {};
+
+            for (const b in copiedState) {
+                if (b === boardId) {
+                    result[newTitle] = copiedState[b];
+                } else {
+                    result[b] = copiedState[b];
+                }
+            }
+
+            return result;
+        });
+    };
 
     return (
         <Wrapper>
-            <Title>{boardId}</Title>
+            <Title>
+                <span>{boardId}</span>
+                <button onClick={_onClick}>+</button>
+            </Title>
+            <Form onSubmit={_onSubmit}>
+                <TitleInput
+                    ref={inputRef}
+                    type="hidden"
+                    placeholder="Input change name."
+                    onChange={_onChange}
+                />
+            </Form>
             <Form onSubmit={handleSubmit(onValid)}>
-                <input
+                <Input
                     {...register("toDo", { required: true })}
                     type="text"
                     placeholder={`Add task on ${boardId}`}

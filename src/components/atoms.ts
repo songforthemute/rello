@@ -5,7 +5,7 @@ export interface InterfaceToDo {
     payload: string;
 }
 
-interface InterfaceToDoState {
+export interface InterfaceToDoState {
     [key: string]: InterfaceToDo[];
 }
 export const LOCAL_KEY = "TODOS_LOCAL";
