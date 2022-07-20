@@ -27,17 +27,15 @@ const Title = styled.h2`
     justify-content: center;
     button {
         cursor: pointer;
+        font-size: 20px;
         background-color: transparent;
         margin-left: 10px;
         border: none;
-        border-radius: 20px;
-        height: 25px;
-        width: 25px;
+        border-radius: 10px;
         text-align: center;
         padding: auto;
         transition: box-shadow 0.35s ease-in-out;
-        &:hover,
-        &:focus {
+        &:hover {
             box-shadow: inset ${(props) => props.theme.boxShadow};
         }
     }
@@ -117,12 +115,22 @@ const Board = ({ toDos, boardId }: InterfaceBoardProps) => {
             return { ...current, [boardId]: [...current[boardId], newCard] };
         });
     };
-    const inputRef = useRef<HTMLInputElement>(null);
-    const _onClick = () => {
+    const titleInputRef = useRef<HTMLInputElement>(null);
+    const toDoInputRef = useRef<HTMLInputElement>(null);
+
+    const _onClickTitleInput = () => {
         // inputRef.current!.style.width = "100%";
-        if (inputRef.current!.type === "text")
-            inputRef.current!.type = "hidden";
-        else inputRef.current!.type = "text";
+        if (titleInputRef.current!.type === "text")
+            titleInputRef.current!.type = "hidden";
+        else titleInputRef.current!.type = "text";
+        titleInputRef.current!.focus();
+    };
+
+    const _onClickToDoInput = () => {
+        if (toDoInputRef.current!.type === "text")
+            toDoInputRef.current!.type = "hidden";
+        else toDoInputRef.current!.type = "text";
+        toDoInputRef.current!.focus();
     };
 
     const _onChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -153,20 +161,22 @@ const Board = ({ toDos, boardId }: InterfaceBoardProps) => {
         <Wrapper>
             <Title>
                 <span>{boardId}</span>
-                <button onClick={_onClick}>+</button>
+                <button onClick={_onClickToDoInput}>🆕</button>
+                <button onClick={_onClickTitleInput}>✏️</button>
             </Title>
             <Form onSubmit={_onSubmit}>
                 <TitleInput
-                    ref={inputRef}
+                    ref={titleInputRef}
                     type="hidden"
-                    placeholder="Input change name."
+                    placeholder="Enter a board title to replace"
                     onChange={_onChange}
                 />
             </Form>
             <Form onSubmit={handleSubmit(onValid)}>
                 <Input
                     {...register("toDo", { required: true })}
-                    type="text"
+                    ref={toDoInputRef}
+                    type="hidden"
                     placeholder={`Add task on ${boardId}`}
                 />
             </Form>
