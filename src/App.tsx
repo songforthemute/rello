@@ -3,7 +3,7 @@ import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import styled from "styled-components";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { LOCAL_KEY, toDoState } from "./components/atoms";
-import Board from "./components/Borad";
+import Board from "./components/Board";
 import { useEffect } from "react";
 
 const Wrapper = styled.div`
@@ -65,9 +65,9 @@ const App = () => {
         }
     };
 
+    // set default
     useEffect(() => {
         localStorage.setItem(LOCAL_KEY, JSON.stringify(localToDos));
-        console.log(localToDos);
     }, [localToDos]);
 
     return (

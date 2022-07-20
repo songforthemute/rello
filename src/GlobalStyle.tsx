@@ -33,7 +33,8 @@ const GlobalStyle = createGlobalStyle`
     body {
         line-height: 1.65;
         font-weight: 400;
-        font-family: 'Roboto Slab', serif;
+        font-family: 'Noto Sans KR', sans-serif;
+        font-size: 13px;
         background-color: ${(props) => props.theme.bgColor};
         color: #252525;
     }

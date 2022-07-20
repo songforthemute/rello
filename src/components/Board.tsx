@@ -41,9 +41,20 @@ const Area = styled.div<InterfaceAreaProps>`
 `;
 
 const Form = styled.form`
-    width: 100%;
+    width: 260px;
+    margin: 0 auto;
+    position: relative;
     input {
-        width: 100%;
+        width: 50%;
+        border: none;
+        border-radius: 20px;
+        padding: 10px 10px;
+        transition: all 0.35s ease-in-out;
+        &:focus,
+        &:hover {
+            width: 100%;
+            box-shadow: inset ${(props) => props.theme.boxShadow};
+        }
     }
 `;
 
