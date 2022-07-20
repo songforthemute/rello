@@ -97,6 +97,7 @@ const Board = ({ toDos, boardId }: InterfaceBoardProps) => {
                                 key={toDo.id}
                                 payload={toDo.payload}
                                 cardId={toDo.id}
+                                boardId={boardId}
                                 index={index}
                             />
                         ))}

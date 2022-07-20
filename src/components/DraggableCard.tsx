@@ -1,6 +1,8 @@
 import React from "react";
 import { Draggable } from "react-beautiful-dnd";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
+import { toDoState } from "./atoms";
 
 interface InterfaceCardProps {
     isDragging: boolean;
@@ -14,12 +16,33 @@ const Card = styled.div<InterfaceCardProps>`
         props.isDragging ? "#74b9ff" : props.theme.cardColor};
     box-shadow: ${(props) =>
         props.isDragging ? props.theme.boxShadow : "none"};
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    button {
+        cursor: pointer;
+        border: none;
+        border-radius: 20px;
+        text-align: center;
+        padding: 0px;
+        width: 25px;
+        height: auto;
+        background-color: transparent;
+        font-size: 24px;
+        color: red;
+        transition: color 0.25s ease-in-out;
+        &:hover,
+        &:focus {
+            color: black;
+        }
+    }
 `;
 
 interface InterfaceDraggableCardProps {
     cardId: number;
     payload: string;
     index: number;
+    boardId: string;
 }
 
 /*
@@ -34,7 +57,19 @@ const DraggableCard = ({
     payload,
     cardId,
     index,
+    boardId,
 }: InterfaceDraggableCardProps) => {
+    const setToDos = useSetRecoilState(toDoState);
+    const _onClick = () => {
+        setToDos((current) => {
+            const removed = current[boardId].filter(
+                (toDo) => toDo.id !== cardId
+            );
+
+            return { ...current, [boardId]: removed };
+        });
+    };
+
     return (
         <Draggable draggableId={cardId.toString()} index={index}>
             {(provided, snapshot) => (
@@ -44,7 +79,8 @@ const DraggableCard = ({
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
                 >
-                    {payload}
+                    <span>{payload}</span>
+                    <button onClick={_onClick}>&times;</button>
                 </Card>
             )}
         </Draggable>
