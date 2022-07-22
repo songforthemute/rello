@@ -84,7 +84,7 @@ const Form = styled.form`
     margin: 0 auto;
 `;
 
-const Input = styled.input<{ type: string }>`
+const Input = styled.input`
     width: 100%;
     border: none;
     outline: none;

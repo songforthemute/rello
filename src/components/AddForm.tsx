@@ -136,6 +136,7 @@ const AddForm = () => {
         setToDos((current) => {
             return { ...current, [newBoardtitle]: [] };
         });
+        setShowForm((prev) => !prev);
     };
 
     const _onClickToggle = (e: MouseEvent<HTMLButtonElement>) => {
