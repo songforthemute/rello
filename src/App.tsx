@@ -5,6 +5,8 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { LOCAL_KEY, toDoState } from "./components/atoms";
 import Board from "./components/Board";
 import { useEffect } from "react";
+import Bin from "./components/Bin";
+import AddForm from "./components/AddForm";
 
 const Wrapper = styled.div`
     display: flex;
@@ -22,28 +24,46 @@ const Boards = styled.div`
     align-items: flex-start;
     width: 100%;
     gap: 15px;
+    @media screen and (max-width: 425px) {
+    }
 `;
 
 const App = () => {
     const localToDos = useRecoilValue(toDoState);
     const [toDos, setToDos] = useRecoilState(toDoState);
+
     const _onDragEnd = (info: DropResult) => {
         const { destination, source } = info;
 
         // 목적지 X
         if (!destination) return;
 
+        // 카드 제거
+        if (destination.droppableId === "bin") {
+            setToDos((current) => {
+                const sourceBoard = [...current[source.droppableId]];
+
+                sourceBoard.splice(source.index, 1);
+
+                return { ...current, [source.droppableId]: sourceBoard };
+            });
+
+            return;
+        }
+
         // 동일 보드 내 이동
         if (destination.droppableId === source.droppableId) {
             setToDos((current) => {
-                const copiedBoard = [...current[source.droppableId]];
-                const copiedCard = copiedBoard[source.index];
+                const sourceBoard = [...current[source.droppableId]];
+                const sourceCard = sourceBoard[source.index];
 
-                copiedBoard.splice(source.index, 1); // del item from source
-                copiedBoard.splice(destination.index, 0, copiedCard); // add item to destination
+                sourceBoard.splice(source.index, 1); // del item from source
+                sourceBoard.splice(destination.index, 0, sourceCard); // add item to destination
 
-                return { ...current, [destination.droppableId]: copiedBoard };
+                return { ...current, [destination.droppableId]: sourceBoard };
             });
+
+            return;
         }
 
         // 보드 간 이동
@@ -62,6 +82,8 @@ const App = () => {
                     [destination.droppableId]: destinationBoard,
                 };
             });
+
+            return;
         }
     };
 
@@ -73,7 +95,9 @@ const App = () => {
     return (
         <>
             <GlobalStyle />
+            <AddForm />
             <DragDropContext onDragEnd={_onDragEnd}>
+                <Bin />
                 <Wrapper>
                     <Boards>
                         {Object.keys(toDos).map((id) => (
