@@ -13,7 +13,7 @@ const Card = styled.div<InterfaceCardProps>`
     margin-bottom: 5px;
     padding: 10px 10px;
     background-color: ${(props) =>
-        props.isDragging ? "#74b9ff" : props.theme.cardColor};
+        props.isDragging ? props.theme.accentColor : props.theme.cardColor};
     box-shadow: ${(props) =>
         props.isDragging ? props.theme.boxShadow : "none"};
     display: flex;

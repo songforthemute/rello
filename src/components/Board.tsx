@@ -19,25 +19,46 @@ const Wrapper = styled.div`
 
 const Title = styled.h2`
     text-align: center;
-    font-weight: 600;
+    font-weight: 500;
     margin-bottom: 10px;
-    font-size: 18px;
+    font-size: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    button {
-        cursor: pointer;
-        font-size: 20px;
-        background-color: transparent;
-        margin-left: 10px;
-        border: none;
-        border-radius: 10px;
-        text-align: center;
-        padding: auto;
-        transition: box-shadow 0.35s ease-in-out;
-        &:hover {
-            box-shadow: inset ${(props) => props.theme.boxShadow};
-        }
+    position: relative;
+`;
+
+const AddBtn = styled.button`
+    position: absolute;
+    left: 20px;
+    cursor: pointer;
+    font-size: 22px;
+    background-color: transparent;
+    margin-left: 5px;
+    border: none;
+    border-radius: 10px;
+    text-align: center;
+    padding: auto;
+    transition: box-shadow 0.35s ease-in-out;
+    &:hover {
+        box-shadow: inset ${(props) => props.theme.boxShadow};
+    }
+`;
+
+const ModBtn = styled.button`
+    position: absolute;
+    right: 20px;
+    cursor: pointer;
+    font-size: 18px;
+    background-color: transparent;
+    margin-left: 5px;
+    border: none;
+    border-radius: 10px;
+    text-align: center;
+    padding: auto;
+    transition: box-shadow 0.35s ease-in-out;
+    &:hover {
+        box-shadow: inset ${(props) => props.theme.boxShadow};
     }
 `;
 
@@ -49,7 +70,7 @@ interface InterfaceAreaProps {
 const Area = styled.div<InterfaceAreaProps>`
     background-color: ${(props) =>
         props.isDraggingOver
-            ? props.theme.accentColor
+            ? "#74b9ff"
             : props.isDraggingFromThis
             ? "#828e9496"
             : "transparent"};
@@ -59,34 +80,23 @@ const Area = styled.div<InterfaceAreaProps>`
 `;
 
 const Form = styled.form`
-    width: 260px;
+    width: 90%;
     margin: 0 auto;
 `;
 
 const Input = styled.input`
-    width: 50%;
+    width: 100%;
     border: none;
+    outline: none;
     border-radius: 20px;
-    padding: 10px 10px;
-    transition: all 0.35s ease-in-out;
-    &:focus,
-    &:hover {
-        width: 100%;
-        box-shadow: inset ${(props) => props.theme.boxShadow};
-    }
-`;
-
-const TitleInput = styled.input`
-    width: 50%;
-    border: none;
-    border-radius: 20px;
-    padding: 10px 10px;
+    padding: 10px;
     transition: all 0.35s ease-in-out;
     margin: 0 auto;
     margin-bottom: 10px;
     &:focus,
-    &:hover {
-        width: 90%;
+    &:hover,
+    &:active {
+        width: 100%;
         box-shadow: inset ${(props) => props.theme.boxShadow};
     }
 `;
@@ -121,7 +131,6 @@ const Board = ({ toDos, boardId }: InterfaceBoardProps) => {
     };
 
     const _onClickTitleInput = () => {
-        // inputRef.current!.style.width = "100%";
         if (titleInputRef.current!.type === "text")
             titleInputRef.current!.type = "hidden";
         else titleInputRef.current!.type = "text";
@@ -163,11 +172,11 @@ const Board = ({ toDos, boardId }: InterfaceBoardProps) => {
         <Wrapper>
             <Title>
                 <span>{boardId}</span>
-                <button onClick={_onClickToDoInput}>🆕</button>
-                <button onClick={_onClickTitleInput}>✏️</button>
+                <AddBtn onClick={_onClickToDoInput}>+</AddBtn>
+                <ModBtn onClick={_onClickTitleInput}>✏️</ModBtn>
             </Title>
             <Form onSubmit={_onSubmit}>
-                <TitleInput
+                <Input
                     ref={titleInputRef}
                     type="hidden"
                     placeholder="Enter a board title to replace"
