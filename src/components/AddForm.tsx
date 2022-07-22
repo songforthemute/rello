@@ -24,6 +24,12 @@ const ToggleBtn = styled.button<{ showForm: boolean }>`
         props.showForm
             ? `inset ${props.theme.boxShadow}`
             : props.theme.boxShadow};
+    /* desktop & laptop */
+    @media screen and (min-width: 769px) {
+        &:hover {
+            box-shadow: inset ${(props) => props.theme.boxShadow};
+        }
+    }
     /* tablet */
     @media screen and (max-width: 768px) {
         top: 30px;
@@ -113,13 +119,27 @@ const SubmitBtn = styled.button`
     }
 `;
 
+interface InterfaceForm {
+    newBoard: string;
+}
+
 const AddForm = () => {
     const [showForm, setShowForm] = useState(false);
+
+    const { register, setValue, handleSubmit } = useForm<InterfaceForm>();
     const setToDos = useSetRecoilState(toDoState);
-    const { register } = useForm();
+
+    const onValid = ({ newBoard }: InterfaceForm) => {
+        const newBoardtitle = newBoard;
+
+        setValue("newBoard", "");
+        setToDos((current) => {
+            return { ...current, [newBoardtitle]: [] };
+        });
+    };
 
     const _onClickToggle = (e: MouseEvent<HTMLButtonElement>) => {
-        // Add input form in modal window & function
+        // Add input form in modal window ?
         setShowForm((prev) => !prev);
     };
 
@@ -128,8 +148,12 @@ const AddForm = () => {
             <ToggleBtn onClick={_onClickToggle} showForm={showForm}>
                 +
             </ToggleBtn>
-            <Form showForm={showForm}>
-                <input type="text" />
+            <Form onSubmit={handleSubmit(onValid)} showForm={showForm}>
+                <input
+                    {...register("newBoard", { required: true })}
+                    type="text"
+                    placeholder="Enter new board name."
+                />
                 <SubmitBtn>&rarr;</SubmitBtn>
             </Form>
         </>

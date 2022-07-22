@@ -8,6 +8,7 @@ export interface InterfaceToDo {
 export interface InterfaceToDoState {
     [key: string]: InterfaceToDo[];
 }
+
 export const LOCAL_KEY = "TODOS_LOCAL";
 const preset = `{"To Do": [], "Doing": [], "Done": []}`;
 const local = JSON.parse(localStorage.getItem(LOCAL_KEY) || preset);

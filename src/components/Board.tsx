@@ -84,7 +84,7 @@ const Form = styled.form`
     margin: 0 auto;
 `;
 
-const Input = styled.input`
+const Input = styled.input<{ type: string }>`
     width: 100%;
     border: none;
     outline: none;
@@ -112,11 +112,13 @@ interface InterfaceForm {
 
 const Board = ({ toDos, boardId }: InterfaceBoardProps) => {
     const [newTitle, setNewTitle] = useState("");
-    const setToDos = useSetRecoilState(toDoState);
+
     const { register, setValue, handleSubmit } = useForm<InterfaceForm>();
+    const { ref, ...rest } = register("toDo", { required: true });
+    const setToDos = useSetRecoilState(toDoState);
+
     const titleInputRef = useRef<HTMLInputElement>(null);
     const toDoInputRef = useRef<HTMLInputElement | null>(null);
-    const { ref, ...rest } = register("toDo", { required: true });
 
     const onValid = ({ toDo }: InterfaceForm) => {
         const newCard: InterfaceToDo = {
@@ -131,16 +133,20 @@ const Board = ({ toDos, boardId }: InterfaceBoardProps) => {
     };
 
     const _onClickTitleInput = () => {
-        if (titleInputRef.current!.type === "text")
+        if (titleInputRef.current!.type === "text") {
             titleInputRef.current!.type = "hidden";
-        else titleInputRef.current!.type = "text";
+        } else {
+            titleInputRef.current!.type = "text";
+        }
         titleInputRef.current!.focus();
     };
 
     const _onClickToDoInput = () => {
-        if (toDoInputRef.current!.type === "text")
+        if (toDoInputRef.current!.type === "text") {
             toDoInputRef.current!.type = "hidden";
-        else toDoInputRef.current!.type = "text";
+        } else {
+            toDoInputRef.current!.type = "text";
+        }
         toDoInputRef.current!.focus();
     };
 
