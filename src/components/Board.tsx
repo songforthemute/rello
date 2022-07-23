@@ -130,6 +130,8 @@ const Board = ({ toDos, boardId }: InterfaceBoardProps) => {
         setToDos((current) => {
             return { ...current, [boardId]: [...current[boardId], newCard] };
         });
+
+        toDoInputRef.current!.type = "hidden";
     };
 
     const _onClickTitleInput = () => {
@@ -137,8 +139,8 @@ const Board = ({ toDos, boardId }: InterfaceBoardProps) => {
             titleInputRef.current!.type = "hidden";
         } else {
             titleInputRef.current!.type = "text";
+            titleInputRef.current!.focus();
         }
-        titleInputRef.current!.focus();
     };
 
     const _onClickToDoInput = () => {
@@ -146,8 +148,8 @@ const Board = ({ toDos, boardId }: InterfaceBoardProps) => {
             toDoInputRef.current!.type = "hidden";
         } else {
             toDoInputRef.current!.type = "text";
+            toDoInputRef.current!.focus();
         }
-        toDoInputRef.current!.focus();
     };
 
     const _onChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -172,6 +174,8 @@ const Board = ({ toDos, boardId }: InterfaceBoardProps) => {
 
             return result;
         });
+
+        titleInputRef.current!.type = "hidden";
     };
 
     return (

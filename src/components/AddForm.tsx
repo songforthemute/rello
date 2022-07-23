@@ -1,4 +1,4 @@
-import { MouseEvent, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
@@ -139,7 +139,7 @@ const AddForm = () => {
         setShowForm((prev) => !prev);
     };
 
-    const _onClickToggle = (e: MouseEvent<HTMLButtonElement>) => {
+    const _onClickToggle = () => {
         // Add input form in modal window ?
         setShowForm((prev) => !prev);
     };
