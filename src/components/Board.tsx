@@ -123,7 +123,10 @@ const Board = ({ toDos, boardId }: InterfaceBoardProps) => {
     const onValid = ({ toDo }: InterfaceForm) => {
         const newCard: InterfaceToDo = {
             id: Date.now(),
-            payload: toDo,
+            payload: {
+                title: toDo,
+                description: "",
+            },
         };
 
         setValue("toDo", "");
@@ -217,7 +220,7 @@ const Board = ({ toDos, boardId }: InterfaceBoardProps) => {
                         {toDos.map((toDo, index) => (
                             <DraggableCard
                                 key={toDo.id}
-                                payload={toDo.payload}
+                                title={toDo.payload.title}
                                 cardId={toDo.id}
                                 boardId={boardId}
                                 index={index}

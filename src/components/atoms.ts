@@ -1,8 +1,13 @@
 import { atom, selector } from "recoil";
 
+export interface InterfacePayload {
+    title: string;
+    description?: string;
+}
+
 export interface InterfaceToDo {
     id: number;
-    payload: string;
+    payload: InterfacePayload;
 }
 
 export interface InterfaceToDoState {
@@ -16,6 +21,18 @@ const local = JSON.parse(localStorage.getItem(LOCAL_KEY) || preset);
 export const toDoState = atom<InterfaceToDoState>({
     key: `toDo/${crypto.randomUUID()}`,
     default: local,
+});
+
+export interface InterfaceModal {
+    isShow: boolean;
+    payload?: InterfacePayload;
+}
+
+export const modalState = atom<InterfaceModal>({
+    key: `isModal/${crypto.randomUUID()}`,
+    default: {
+        isShow: false,
+    },
 });
 
 // {

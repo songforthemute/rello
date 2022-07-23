@@ -19,28 +19,49 @@ const Card = styled.div<InterfaceCardProps>`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    button {
-        cursor: pointer;
-        border: none;
-        border-radius: 20px;
-        text-align: center;
-        padding: 0px;
-        width: 25px;
-        height: auto;
-        background-color: transparent;
-        font-size: 24px;
-        color: red;
-        transition: color 0.25s ease-in-out;
-        &:hover,
-        &:focus {
-            color: black;
-        }
+`;
+
+const RemoveButton = styled.button`
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    text-align: center;
+    padding: 0px;
+    width: 25px;
+    height: auto;
+    background-color: transparent;
+    font-size: 24px;
+    color: red;
+    transition: all 0.25s ease-in-out;
+    &:hover,
+    &:focus {
+        color: black;
+        box-shadow: inset ${(props) => props.theme.boxShadow};
+    }
+`;
+
+const DetailButton = styled.button`
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    text-align: center;
+    padding: 0px;
+    width: 25px;
+    height: auto;
+    background-color: transparent;
+    font-size: 24px;
+    color: black;
+    transition: all 0.25s ease-in-out;
+    &:hover,
+    &:focus {
+        color: ${(props) => props.theme.bgColor};
+        box-shadow: inset ${(props) => props.theme.boxShadow};
     }
 `;
 
 interface InterfaceDraggableCardProps {
     cardId: number;
-    payload: string;
+    title: string;
     index: number;
     boardId: string;
 }
@@ -54,13 +75,13 @@ interface InterfaceDraggableCardProps {
 */
 
 const DraggableCard = ({
-    payload,
+    title,
     cardId,
     index,
     boardId,
 }: InterfaceDraggableCardProps) => {
     const setToDos = useSetRecoilState(toDoState);
-    const _onClick = () => {
+    const _onClickRemove = () => {
         setToDos((current) => {
             const removed = current[boardId].filter(
                 (toDo) => toDo.id !== cardId
@@ -68,6 +89,11 @@ const DraggableCard = ({
 
             return { ...current, [boardId]: removed };
         });
+    };
+
+    const _onClickDetail = () => {
+        // turn on Modal form
+        // search Data
     };
 
     return (
@@ -79,8 +105,15 @@ const DraggableCard = ({
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
                 >
-                    <span>{payload}</span>
-                    <button onClick={_onClick}>&times;</button>
+                    <span>{title}</span>
+                    <span>
+                        <DetailButton onClick={_onClickDetail}>
+                            &equiv;
+                        </DetailButton>
+                        <RemoveButton onClick={_onClickRemove}>
+                            &times;
+                        </RemoveButton>
+                    </span>
                 </Card>
             )}
         </Draggable>
