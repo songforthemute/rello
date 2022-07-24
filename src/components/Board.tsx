@@ -28,28 +28,12 @@ const Title = styled.h2`
     position: relative;
 `;
 
-const AddBtn = styled.button`
+const Btn = styled.button<{ l: string; r: string }>`
     position: absolute;
-    left: 20px;
+    left: ${(props) => props.l};
+    right: ${(props) => props.r};
     cursor: pointer;
-    font-size: 22px;
-    background-color: transparent;
-    margin-left: 5px;
-    border: none;
-    border-radius: 10px;
-    text-align: center;
-    padding: auto;
-    transition: box-shadow 0.35s ease-in-out;
-    &:hover {
-        box-shadow: inset ${(props) => props.theme.boxShadow};
-    }
-`;
-
-const ModBtn = styled.button`
-    position: absolute;
-    right: 20px;
-    cursor: pointer;
-    font-size: 18px;
+    font-size: 20px;
     background-color: transparent;
     margin-left: 5px;
     border: none;
@@ -155,6 +139,19 @@ const Board = ({ toDos, boardId }: InterfaceBoardProps) => {
         }
     };
 
+    const _onClickRemoveBoard = () => {
+        const ok = window.confirm(
+            "Are you sure you want to remove this board?\nThe removed board cannot be reversed."
+        );
+        ok &&
+            setToDos((current) => {
+                const source = { ...current };
+                delete source[boardId];
+
+                return { ...source };
+            });
+    };
+
     const _onChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { value } = e.currentTarget;
         setNewTitle(value);
@@ -185,8 +182,15 @@ const Board = ({ toDos, boardId }: InterfaceBoardProps) => {
         <Wrapper>
             <Title>
                 <span>{boardId}</span>
-                <AddBtn onClick={_onClickToDoInput}>+</AddBtn>
-                <ModBtn onClick={_onClickTitleInput}>✏️</ModBtn>
+                <Btn l="10px" r="initial" onClick={_onClickToDoInput}>
+                    +
+                </Btn>
+                <Btn l="initial" r="40px" onClick={_onClickTitleInput}>
+                    ✏️
+                </Btn>
+                <Btn l="initial" r="10px" onClick={_onClickRemoveBoard}>
+                    ✘
+                </Btn>
             </Title>
             <Form onSubmit={_onSubmit}>
                 <Input
