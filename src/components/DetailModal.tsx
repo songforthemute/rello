@@ -16,40 +16,69 @@ const BackGround = styled.div`
 const Modal = styled.div`
     position: relative;
     /* display: flex; */
-    background-color: azure;
+    background-color: ${(props) => props.theme.boardColor};
     border-radius: 10px;
     box-shadow: ${(props) => props.theme.boxShadow};
     width: 60vw;
-    height: 60vh;
+    height: auto;
 `;
 
-const Btn = styled.button<{ space: string }>`
+const Btn = styled.button<{ t: string; r: string }>`
     position: absolute;
-    top: 10px;
-    right: ${(props) => props.space};
+    top: ${(props) => props.t};
+    right: ${(props) => props.r};
     outline: none;
     border: 0;
-    border-radius: 5px;
-    padding: 8px;
+    border-radius: 10px;
+    width: 36px;
+    height: 36px;
+    padding: 5px;
     cursor: pointer;
     background-color: transparent;
-    &:hover {
+    transition: all 0.35s ease-in-out;
+    span {
+        font-size: 26px;
+        padding: auto;
+    }
+    &:hover,
+    &:focus {
+        color: ${(props) => props.theme.bgColor};
         box-shadow: inset ${(props) => props.theme.boxShadow};
     }
 `;
 
 const Context = styled.div`
-    margin: 10px;
+    margin: 20px;
+    margin-top: 50px;
 `;
 
 const Title = styled.div`
-    padding: 20px 10px;
-    font-size: 20px;
-    font-weight: 500;
+    padding: 10px 40px 10px 20px;
+    font-size: 24px;
+    border-radius: 10px;
+    background-color: ${(props) => props.theme.cardColor};
+    margin-bottom: 20px;
 `;
 
-const Description = styled.div`
-    padding: 10px;
+const Dated = styled.div`
+    padding: 20px 10px 10px 10px;
+    font-style: italic;
+`;
+
+const Subject = styled.h2`
+    position: relative;
+    font-size: 14px;
+    font-weight: 600;
+    padding-bottom: 6px;
+    padding-left: 10px;
+    font-style: italic;
+`;
+
+const Detail = styled.div`
+    padding: 20px;
+    padding-right: 40px;
+    border-radius: 10px;
+    background-color: ${(props) => props.theme.cardColor};
 `;
 
 const DetailModal = () => {
@@ -73,25 +102,25 @@ const DetailModal = () => {
     return (
         <BackGround>
             <Modal>
-                <Btn space={"40px"} onClick={_onClickModify}>
-                    ✏️
+                <Btn t={"10px"} r={"10px"} onClick={_onClickClose}>
+                    <span className="material-symbols-outlined">close</span>
                 </Btn>
-                <Btn space={"10px"} onClick={_onClickClose}>
-                    ❌
+                <Btn t={"10px"} r={"50px"} onClick={_onClickModify}>
+                    <span className="material-symbols-outlined">edit_note</span>
                 </Btn>
                 <Context>
-                    <Description>
-                        {dateConverter(detailModal.modal?.id!)}
-                    </Description>
+                    <Subject>Title</Subject>
                     <Title>{detailModal.modal?.payload.title}</Title>
                     {/* <Description>{detailModal.modal?.payload.description}</Description> */}
-                    <Description>
+                    <Subject>Details</Subject>
+                    <Detail>
                         Lorem ipsum dolor sit amet consectetur adipisicing elit.
                         Quas accusamus modi, provident ducimus debitis, iure
                         aliquid autem magni laboriosam explicabo nesciunt!
                         Obcaecati dicta minus pariatur impedit repellendus nemo
                         deleniti. Delectus.
-                    </Description>
+                    </Detail>
+                    <Dated>{dateConverter(detailModal.modal?.id!)}</Dated>
                 </Context>
             </Modal>
         </BackGround>

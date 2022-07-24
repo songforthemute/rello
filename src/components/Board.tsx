@@ -32,15 +32,21 @@ const Btn = styled.button<{ l: string; r: string }>`
     position: absolute;
     left: ${(props) => props.l};
     right: ${(props) => props.r};
+    width: 28px;
+    height: 28px;
     cursor: pointer;
-    font-size: 20px;
     background-color: transparent;
-    margin-left: 5px;
+    margin-left: 2.5px;
+    margin-right: 2.5px;
     border: none;
-    border-radius: 10px;
+    border-radius: 6px;
     text-align: center;
-    padding: auto;
-    transition: box-shadow 0.35s ease-in-out;
+    padding: 4px;
+    transition: box-shadow 0.25s ease-in-out;
+    div {
+        font-size: 20px;
+        padding: auto;
+    }
     &:hover {
         box-shadow: inset ${(props) => props.theme.boxShadow};
     }
@@ -125,6 +131,7 @@ const Board = ({ toDos, boardId }: InterfaceBoardProps) => {
         if (titleInputRef.current!.type === "text") {
             titleInputRef.current!.type = "hidden";
         } else {
+            toDoInputRef.current!.type = "hidden";
             titleInputRef.current!.type = "text";
             titleInputRef.current!.focus();
         }
@@ -134,6 +141,7 @@ const Board = ({ toDos, boardId }: InterfaceBoardProps) => {
         if (toDoInputRef.current!.type === "text") {
             toDoInputRef.current!.type = "hidden";
         } else {
+            titleInputRef.current!.type = "hidden";
             toDoInputRef.current!.type = "text";
             toDoInputRef.current!.focus();
         }
@@ -183,20 +191,20 @@ const Board = ({ toDos, boardId }: InterfaceBoardProps) => {
             <Title>
                 <span>{boardId}</span>
                 <Btn l="10px" r="initial" onClick={_onClickToDoInput}>
-                    +
+                    <div className="material-symbols-outlined">add</div>
                 </Btn>
                 <Btn l="initial" r="40px" onClick={_onClickTitleInput}>
-                    ✏️
+                    <div className="material-symbols-outlined">edit</div>
                 </Btn>
                 <Btn l="initial" r="10px" onClick={_onClickRemoveBoard}>
-                    ✘
+                    <div className="material-symbols-outlined">close</div>
                 </Btn>
             </Title>
             <Form onSubmit={_onSubmit}>
                 <Input
                     ref={titleInputRef}
                     type="hidden"
-                    placeholder="Enter a board title to replace"
+                    placeholder="Enter a board title to replace."
                     onChange={_onChange}
                 />
             </Form>

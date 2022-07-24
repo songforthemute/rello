@@ -33,17 +33,23 @@ const TrashBin = styled.button`
 `;
 
 const Area = styled.div<{ isDraggingOver: boolean }>`
-    cursor: pointer;
     width: inherit;
     height: inherit;
+    color: white;
     padding: 12px;
     border-radius: 12px;
-    transition: all 0.35s ease-in-out;
-    background-color: ${(props) => (props.isDraggingOver ? "tomato" : "")};
+    transition: all 0.25s ease-in-out;
+    background-color: ${(props) => (props.isDraggingOver ? "#FF0000" : "")};
     box-shadow: ${(props) =>
-        props.isDraggingOver
-            ? `inset ${props.theme.boxShadow}`
-            : props.theme.boxShadow};
+        props.isDraggingOver ? `inset ${props.theme.boxShadow}` : ""};
+    div {
+        font-size: 36px;
+        padding: auto;
+    }
+    &:hover,
+    &:focus {
+        box-shadow: inset ${(props) => props.theme.boxShadow};
+    }
     /* tablet */
     @media screen and (max-width: 768px) {
         padding: 10px;
@@ -64,7 +70,7 @@ const Bin = () => {
                         {...provided.droppableProps}
                         isDraggingOver={snapshot.isDraggingOver}
                     >
-                        <div>🗑</div>
+                        <div className="material-symbols-outlined">delete</div>
                         {provided.placeholder}
                     </Area>
                 )}

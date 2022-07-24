@@ -11,7 +11,7 @@ interface InterfaceCardProps {
 const Card = styled.div<InterfaceCardProps>`
     border-radius: 10px;
     margin-bottom: 5px;
-    padding: 10px 10px;
+    padding: 10px;
     background-color: ${(props) =>
         props.isDragging ? props.theme.accentColor : props.theme.cardColor};
     box-shadow: ${(props) =>
@@ -21,37 +21,21 @@ const Card = styled.div<InterfaceCardProps>`
     align-items: center;
 `;
 
-const RemoveButton = styled.button`
+const Btn = styled.button`
+    width: 28px;
+    height: 28px;
+    padding: 4px;
     cursor: pointer;
-    border: none;
-    border-radius: 8px;
+    border: 0;
+    border-radius: 6px;
     text-align: center;
-    padding: 0px;
-    width: 25px;
-    height: auto;
     background-color: transparent;
-    font-size: 24px;
-    color: red;
-    transition: all 0.25s ease-in-out;
-    &:hover,
-    &:focus {
-        color: black;
-        box-shadow: inset ${(props) => props.theme.boxShadow};
-    }
-`;
-
-const DetailButton = styled.button`
-    cursor: pointer;
-    border: none;
-    border-radius: 8px;
-    text-align: center;
-    padding: 0px;
-    width: 25px;
-    height: auto;
-    background-color: transparent;
-    font-size: 24px;
     color: black;
     transition: all 0.25s ease-in-out;
+    div {
+        font-size: 20px;
+        padding: auto;
+    }
     &:hover,
     &:focus {
         color: ${(props) => props.theme.bgColor};
@@ -83,13 +67,17 @@ const DraggableCard = ({
     const [toDos, setToDos] = useRecoilState(toDoState);
     const setDetailModal = useSetRecoilState(modalState);
     const _onClickRemove = () => {
-        setToDos((current) => {
-            const removed = current[boardId].filter(
-                (toDo) => toDo.id !== cardId
-            );
+        const ok = window.confirm(
+            "Are you sure you want to remove this card?\nYou cannot reverse this card."
+        );
+        ok &&
+            setToDos((current) => {
+                const removed = current[boardId].filter(
+                    (toDo) => toDo.id !== cardId
+                );
 
-            return { ...current, [boardId]: removed };
-        });
+                return { ...current, [boardId]: removed };
+            });
     };
 
     const _onClickDetail = () => {
@@ -110,12 +98,16 @@ const DraggableCard = ({
                 >
                     <span>{title}</span>
                     <span>
-                        <DetailButton onClick={_onClickDetail}>
-                            &equiv;
-                        </DetailButton>
-                        <RemoveButton onClick={_onClickRemove}>
-                            &times;
-                        </RemoveButton>
+                        <Btn onClick={_onClickDetail}>
+                            <div className="material-symbols-outlined">
+                                more_horiz
+                            </div>
+                        </Btn>
+                        <Btn onClick={_onClickRemove}>
+                            <div className="material-symbols-outlined">
+                                close
+                            </div>
+                        </Btn>
                     </span>
                 </Card>
             )}

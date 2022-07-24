@@ -35,7 +35,8 @@ const GlobalStyle = createGlobalStyle`
         font-weight: 400;
         font-family: 'Noto Sans KR', sans-serif;
         font-size: 13px;
-        background-color: ${(props) => props.theme.bgColor};
+        /* background-color: ${(props) => props.theme.bgColor}; */
+        background: linear-gradient(135deg, rgba(63,140,242,1) 0%, rgba(49,73,172,1) 100%);
         color: #252525;
     }
     menu, ol, ul {

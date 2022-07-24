@@ -16,14 +16,14 @@ const ToggleBtn = styled.button<{ showForm: boolean }>`
     color: white;
     padding: auto;
     border-radius: 12px;
-    font-size: 40px;
-    font-weight: 300;
     cursor: pointer;
-    transition: all 0.35s ease-in-out;
+    transition: all 0.25s ease-in-out;
     box-shadow: ${(props) =>
-        props.showForm
-            ? `inset ${props.theme.boxShadow}`
-            : props.theme.boxShadow};
+        props.showForm ? `inset ${props.theme.boxShadow}` : ""};
+    div {
+        font-size: 36px;
+        padding: auto;
+    }
     /* desktop & laptop */
     @media screen and (min-width: 769px) {
         &:hover {
@@ -50,12 +50,12 @@ const ToggleBtn = styled.button<{ showForm: boolean }>`
     }
 `;
 
-const Form = styled.form<{ showForm: boolean }>`
-    display: ${(props) => (props.showForm ? "flex" : "none")};
+const Form = styled.form`
+    display: flex;
     position: absolute;
     justify-content: center;
     align-items: center;
-    transition: all 0.35s ease-in-out;
+    transition: all 0.25s ease-in-out;
     top: 50px;
     left: 220px;
     /* tablet */
@@ -94,18 +94,23 @@ const Form = styled.form<{ showForm: boolean }>`
 `;
 
 const SubmitBtn = styled.button`
+    cursor: pointer;
     margin-left: 20px;
     border: none;
     border-radius: 25%;
     width: 40px;
     height: 40px;
-    font-size: 20px;
     padding: auto;
     text-align: center;
     background-color: rgba(180, 190, 195, 0.5);
     color: white;
-    box-shadow: ${(props) => props.theme.boxShadow};
-    transition: all 0.35s ease-in-out;
+    /* box-shadow: ${(props) => props.theme.boxShadow}; */
+    transition: all 0.25s ease-in-out;
+    div {
+        font-size: 24px;
+        padding: auto;
+    }
+
     /* tablet */
     @media screen and (max-width: 768px) {
         width: 25px;
@@ -140,23 +145,26 @@ const AddForm = () => {
     };
 
     const _onClickToggle = () => {
-        // Add input form in modal window ?
         setShowForm((prev) => !prev);
     };
 
     return (
         <>
             <ToggleBtn onClick={_onClickToggle} showForm={showForm}>
-                +
+                <div className="material-symbols-outlined">note_add</div>
             </ToggleBtn>
-            <Form onSubmit={handleSubmit(onValid)} showForm={showForm}>
-                <input
-                    {...register("newBoard", { required: true })}
-                    type="text"
-                    placeholder="Enter new board name."
-                />
-                <SubmitBtn>&rarr;</SubmitBtn>
-            </Form>
+            {showForm && (
+                <Form onSubmit={handleSubmit(onValid)}>
+                    <input
+                        {...register("newBoard", { required: true })}
+                        type="text"
+                        placeholder="Enter new board name."
+                    />
+                    <SubmitBtn>
+                        <div className="material-symbols-outlined">check</div>
+                    </SubmitBtn>
+                </Form>
+            )}
         </>
     );
 };

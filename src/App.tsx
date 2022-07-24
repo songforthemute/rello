@@ -97,7 +97,13 @@ const App = () => {
     return (
         <>
             <GlobalStyle />
-            {detailModal.isShow && <DetailModal />}
+            {detailModal.isShow && (
+                // <>
+                //     <div tabIndex={0} />
+                <DetailModal />
+                //     <div tabIndex={0} />
+                // </>
+            )}
             <AddForm />
             <DragDropContext onDragEnd={_onDragEnd}>
                 <Bin />
