@@ -1,8 +1,8 @@
 import React from "react";
 import { Draggable } from "react-beautiful-dnd";
-import { useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { toDoState } from "./atoms";
+import { modalState, toDoState } from "./atoms";
 
 interface InterfaceCardProps {
     isDragging: boolean;
@@ -80,7 +80,8 @@ const DraggableCard = ({
     index,
     boardId,
 }: InterfaceDraggableCardProps) => {
-    const setToDos = useSetRecoilState(toDoState);
+    const [toDos, setToDos] = useRecoilState(toDoState);
+    const setDetailModal = useSetRecoilState(modalState);
     const _onClickRemove = () => {
         setToDos((current) => {
             const removed = current[boardId].filter(
@@ -92,8 +93,10 @@ const DraggableCard = ({
     };
 
     const _onClickDetail = () => {
-        // turn on Modal form
-        // search Data
+        setDetailModal(() => {
+            const data = toDos[boardId].find((toDo) => toDo.id === cardId);
+            return { isShow: true, modal: data };
+        });
     };
 
     return (

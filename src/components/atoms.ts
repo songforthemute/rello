@@ -25,13 +25,14 @@ export const toDoState = atom<InterfaceToDoState>({
 
 export interface InterfaceModal {
     isShow: boolean;
-    payload?: InterfacePayload;
+    modal: InterfaceToDo | undefined;
 }
 
 export const modalState = atom<InterfaceModal>({
     key: `isModal/${crypto.randomUUID()}`,
     default: {
         isShow: false,
+        modal: undefined,
     },
 });
 

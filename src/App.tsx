@@ -2,11 +2,12 @@ import GlobalStyle from "./GlobalStyle";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import styled from "styled-components";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { LOCAL_KEY, toDoState } from "./components/atoms";
+import { LOCAL_KEY, modalState, toDoState } from "./components/atoms";
 import Board from "./components/Board";
 import { useEffect } from "react";
 import Bin from "./components/Bin";
 import AddForm from "./components/AddForm";
+import DetailModal from "./components/DetailModal";
 
 const Wrapper = styled.div`
     display: flex;
@@ -31,6 +32,7 @@ const Boards = styled.div`
 const App = () => {
     const localToDos = useRecoilValue(toDoState);
     const [toDos, setToDos] = useRecoilState(toDoState);
+    const [detailModal, setDetailModal] = useRecoilState(modalState);
 
     const _onDragEnd = (info: DropResult) => {
         const { destination, source } = info;
@@ -95,6 +97,7 @@ const App = () => {
     return (
         <>
             <GlobalStyle />
+            {detailModal.isShow && <DetailModal />}
             <AddForm />
             <DragDropContext onDragEnd={_onDragEnd}>
                 <Bin />
