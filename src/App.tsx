@@ -11,8 +11,8 @@ import DetailModal from "./components/DetailModal";
 
 const Wrapper = styled.div`
     display: flex;
-    max-width: 890px;
-    width: 100vw;
+    /* max-width: 890px; */
+    width: 90vw;
     margin: 0 auto;
     justify-content: center;
     align-items: center;
@@ -32,7 +32,7 @@ const Boards = styled.div`
 const App = () => {
     const localToDos = useRecoilValue(toDoState);
     const [toDos, setToDos] = useRecoilState(toDoState);
-    const [detailModal, setDetailModal] = useRecoilState(modalState);
+    const detailModal = useRecoilValue(modalState);
 
     const _onDragEnd = (info: DropResult) => {
         const { destination, source } = info;

@@ -83,7 +83,7 @@ const DraggableCard = ({
     const _onClickDetail = () => {
         setDetailModal(() => {
             const data = toDos[boardId].find((toDo) => toDo.id === cardId);
-            return { isShow: true, modal: data };
+            return { isShow: true, boardId, modal: data };
         });
     };
 

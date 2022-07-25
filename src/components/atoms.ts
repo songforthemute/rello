@@ -1,8 +1,8 @@
-import { atom, selector } from "recoil";
+import { atom } from "recoil";
 
 export interface InterfacePayload {
     title: string;
-    description?: string;
+    details?: string;
 }
 
 export interface InterfaceToDo {
@@ -25,14 +25,14 @@ export const toDoState = atom<InterfaceToDoState>({
 
 export interface InterfaceModal {
     isShow: boolean;
-    modal: InterfaceToDo | undefined;
+    boardId?: string;
+    modal?: InterfaceToDo;
 }
 
 export const modalState = atom<InterfaceModal>({
     key: `isModal/${crypto.randomUUID()}`,
     default: {
         isShow: false,
-        modal: undefined,
     },
 });
 

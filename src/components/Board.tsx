@@ -115,7 +115,7 @@ const Board = ({ toDos, boardId }: InterfaceBoardProps) => {
             id: Date.now(),
             payload: {
                 title: toDo,
-                description: "",
+                details: "",
             },
         };
 
