@@ -12,7 +12,6 @@ import DetailModal from "./components/DetailModal";
 const Wrapper = styled.div<{ boardCount: number }>`
     margin: 15px;
     display: flex;
-    /* flex-direction: column; */
     width: 90vw;
     max-width: 1024px;
     margin: 0 auto;

@@ -1,16 +1,17 @@
-import { render } from "react-dom";
+import ReactDOM from "react-dom/client";
 import { RecoilRoot } from "recoil";
 import { ThemeProvider } from "styled-components";
 import App from "./App";
 import { theme } from "./theme";
 
-const rootElement = document.getElementById("root");
+const root = ReactDOM.createRoot(
+    document.getElementById("root") as HTMLElement
+);
 
-render(
+root.render(
     <RecoilRoot>
         <ThemeProvider theme={theme}>
             <App />
         </ThemeProvider>
-    </RecoilRoot>,
-    rootElement
+    </RecoilRoot>
 );
