@@ -38,15 +38,21 @@ const ToggleBtn = styled.button<{ showForm: boolean }>`
         height: 50px;
         padding: 10px;
         font-size: 28px;
+        div {
+            font-size: 30px;
+        }
     }
     /* mobile */
     @media screen and (max-width: 425px) {
         top: 20px;
-        left: 80px;
+        left: 70px;
         width: 40px;
         height: 40px;
         padding: 8px;
         font-size: 20px;
+        div {
+            font-size: 24px;
+        }
     }
 `;
 
@@ -57,16 +63,16 @@ const Form = styled.form`
     align-items: center;
     transition: all 0.25s ease-in-out;
     top: 50px;
-    left: 220px;
+    left: 200px;
     /* tablet */
     @media screen and (max-width: 768px) {
         top: 40px;
-        left: 180px;
+        left: 170px;
     }
     /* mobile */
     @media screen and (max-width: 425px) {
         top: 25px;
-        left: 140px;
+        left: 120px;
     }
     input {
         border: none;
@@ -95,12 +101,12 @@ const Form = styled.form`
 
 const SubmitBtn = styled.button`
     cursor: pointer;
-    margin-left: 20px;
+    margin-left: 10px;
     border: none;
     border-radius: 25%;
     width: 40px;
     height: 40px;
-    padding: auto;
+    padding: 2px;
     text-align: center;
     background-color: rgba(180, 190, 195, 0.5);
     color: white;
@@ -115,7 +121,9 @@ const SubmitBtn = styled.button`
     @media screen and (max-width: 768px) {
         width: 25px;
         height: 25px;
-        font-size: 14px;
+        div {
+            font-size: 20px;
+        }
     }
     &:focus,
     &:hover,
@@ -128,7 +136,7 @@ interface InterfaceForm {
     newBoard: string;
 }
 
-const AddForm = () => {
+const AddBoard = () => {
     const [showForm, setShowForm] = useState(false);
 
     const { register, setValue, handleSubmit } = useForm<InterfaceForm>();
@@ -169,4 +177,4 @@ const AddForm = () => {
     );
 };
 
-export default AddForm;
+export default AddBoard;

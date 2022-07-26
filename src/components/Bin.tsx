@@ -53,10 +53,16 @@ const Area = styled.div<{ isDraggingOver: boolean }>`
     /* tablet */
     @media screen and (max-width: 768px) {
         padding: 10px;
+        div {
+            font-size: 30px;
+        }
     }
     /* mobile */
     @media screen and (max-width: 425px) {
         padding: 8px;
+        div {
+            font-size: 24px;
+        }
     }
 `;
 

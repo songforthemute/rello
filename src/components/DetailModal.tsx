@@ -26,10 +26,18 @@ const Modal = styled.div`
     );
     border-radius: 10px;
     box-shadow: ${(props) => props.theme.boxShadow};
-    width: 40vw;
+    width: 60vw;
     min-height: 35vh;
     height: auto;
     z-index: 99;
+    /* transform: translateY(-50%); */
+    @media screen and (max-width: 768px) {
+        width: 70vw;
+        min-height: 50vh;
+    }
+    @media screen and (max-width: 425px) {
+        width: 80vw;
+    }
 `;
 
 const Btn = styled.button<{ r: string }>`

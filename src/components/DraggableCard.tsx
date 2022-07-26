@@ -97,7 +97,9 @@ const DraggableCard = ({
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
                 >
-                    <span>{title}</span>
+                    <span>
+                        {title.length < 14 ? title : `${title.slice(0, 12)}..`}
+                    </span>
                     <span>
                         <Btn onClick={_onClickDetail}>
                             <div className="material-symbols-outlined">

@@ -10,16 +10,28 @@ const Wrapper = styled.div`
     padding-top: 10px;
     background-color: ${(props) => props.theme.boardColor};
     border-radius: 5px;
-    width: 300px;
-    min-height: 300px;
+    width: 20rem;
+    min-height: 20rem;
     box-shadow: ${(props) => props.theme.boxShadow};
     display: flex;
     flex-direction: column;
+    @media screen and (max-width: 1024px) {
+        width: 18rem;
+        min-height: 18rem;
+    }
+    @media screen and (max-width: 768px) {
+        width: 15rem;
+        min-height: 15rem;
+    }
+    @media screen and (max-width: 425px) {
+        width: 12rem;
+        min-height: 12rem;
+    }
 `;
 
 const Title = styled.h2`
     text-align: center;
-    font-weight: 500;
+    font-weight: 600;
     margin-bottom: 10px;
     font-size: 20px;
     display: flex;
@@ -36,18 +48,19 @@ const Btn = styled.button<{ l: string; r: string }>`
     height: 28px;
     cursor: pointer;
     background-color: transparent;
-    margin-left: 2.5px;
-    margin-right: 2.5px;
+    margin-left: 2px;
+    margin-right: 2px;
     border: none;
     border-radius: 6px;
     text-align: center;
-    padding: 4px;
-    transition: box-shadow 0.25s ease-in-out;
+    padding: 5px;
+    transition: all 0.25s ease-in-out;
     div {
         font-size: 20px;
         padding: auto;
     }
     &:hover {
+        color: ${(props) => props.theme.bgColor};
         box-shadow: inset ${(props) => props.theme.boxShadow};
     }
 `;
@@ -104,7 +117,9 @@ const Board = ({ toDos, boardId }: InterfaceBoardProps) => {
     const [newTitle, setNewTitle] = useState("");
 
     const { register, setValue, handleSubmit } = useForm<InterfaceForm>();
-    const { ref, ...rest } = register("toDo", { required: true });
+    const { ref: toDoRef, ...rest } = register("toDo", {
+        required: "Enter to Do List.",
+    });
     const setToDos = useSetRecoilState(toDoState);
 
     const titleInputRef = useRef<HTMLInputElement>(null);
@@ -212,7 +227,7 @@ const Board = ({ toDos, boardId }: InterfaceBoardProps) => {
                 <Input
                     {...rest}
                     ref={(e) => {
-                        ref(e);
+                        toDoRef(e);
                         toDoInputRef.current = e;
                     }}
                     type="hidden"
