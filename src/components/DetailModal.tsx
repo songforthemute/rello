@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { KeyboardEvent, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
@@ -9,10 +9,11 @@ const BackGround = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 2;
+    z-index: 100;
     background-color: #60606096;
     width: 100%;
     height: 100%;
+    outline: 0;
 `;
 
 const Modal = styled.div`
@@ -28,6 +29,7 @@ const Modal = styled.div`
     width: 40vw;
     min-height: 35vh;
     height: auto;
+    z-index: 99;
 `;
 
 const Btn = styled.button<{ r: string }>`
@@ -148,8 +150,8 @@ interface InterfaceForm {
 const DetailModal = () => {
     const [detailModal, setDetailModal] = useRecoilState(modalState);
     const setToDos = useSetRecoilState(toDoState);
-    const { register, handleSubmit } = useForm<InterfaceForm>();
     const [modifyMode, setModifyMode] = useState(false);
+    const { register, handleSubmit } = useForm<InterfaceForm>();
 
     const onValid = ({ title, details }: InterfaceForm) => {
         const updatedToDos = { id: Date.now(), payload: { title, details } };
@@ -182,13 +184,21 @@ const DetailModal = () => {
         });
     };
 
+    const _onKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+        if (e.key === "Escape") {
+            setDetailModal(() => {
+                return { modal: undefined, boardId: undefined, isShow: false };
+            });
+        }
+    };
+
     const dateConverter = (date: number) => {
         const d = new Date(date);
         return d.toLocaleString("ko-KR");
     };
 
     return (
-        <BackGround>
+        <BackGround tabIndex={0} onKeyDown={_onKeyDown}>
             <Modal>
                 <Btn r={"10px"} onClick={_onClickClose} type="button">
                     <span className="material-symbols-outlined">close</span>
