@@ -38,6 +38,9 @@ const GlobalStyle = createGlobalStyle`
         /* background-color: ${(props) => props.theme.bgColor}; */
         background: linear-gradient(135deg, rgba(63,140,242,1) 0%, rgba(49,73,172,1) 100%);
         color: #252525;
+        @media screen and (max-width: 425px) {
+            font-size: 12px;
+        }
     }
     menu, ol, ul {
         list-style: none;
