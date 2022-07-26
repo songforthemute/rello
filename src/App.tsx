@@ -10,19 +10,22 @@ import AddBoard from "./components/AddBoard";
 import DetailModal from "./components/DetailModal";
 
 const Wrapper = styled.div<{ boardCount: number }>`
-    /* overflow: hidden; */
     margin: 15px;
     display: flex;
     width: 90vw;
+    max-width: 1024px;
     margin: 0 auto;
     justify-content: center;
     align-items: center;
-    height: ${(props) => `${Math.ceil(props.boardCount / 4) * 10 + 100}vh`};
+    height: ${(props) =>
+        `${Math.max(100, Math.ceil(props.boardCount / 4) * 30 + 50)}vh`};
     @media screen and (max-width: 1024px) {
-        height: ${(props) => `${Math.ceil(props.boardCount / 3) * 15 + 100}vh`};
+        height: ${(props) =>
+            `${Math.max(100, Math.ceil(props.boardCount / 3) * 40 + 50)}vh`};
     }
     @media screen and (max-width: 425px) {
-        height: ${(props) => `${Math.ceil(props.boardCount / 2) * 20 + 100}vh`};
+        height: ${(props) =>
+            `${Math.max(100, Math.ceil(props.boardCount / 2) * 30 + 50)}vh`};
     }
 `;
 
@@ -34,27 +37,19 @@ const Boards = styled.div`
     width: 100%;
     gap: 15px;
     @media screen and (max-width: 1024px) {
-        margin-left: 10px;
-        margin-right: 10px;
+        gap: 20px 5px;
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+    @media screen and (max-width: 768px) {
         gap: 10px;
-        display: grid;
         grid-template-columns: 1fr 1fr 1fr;
     }
     @media screen and (max-width: 425px) {
-        display: grid;
+        gap: 10px;
         grid-template-columns: 1fr 1fr;
     }
 `;
 
-const Space = styled.div`
-    padding: 80px;
-    @media screen and (max-width: 768px) {
-        padding: 70px;
-    }
-    @media screen and (max-width: 425px) {
-        padding: 10px;
-    }
-`;
 
 const App = () => {
     const localToDos = useRecoilValue(toDoState);
@@ -125,16 +120,10 @@ const App = () => {
         <>
             <GlobalStyle />
 
-            {detailModal.isShow && (
-                <>
-                    <div tabIndex={0} />
-                    <DetailModal />
-                    <div tabIndex={0} />
-                </>
-            )}
+            {detailModal.isShow && <DetailModal />}
 
             <AddBoard />
-            <Space />
+
             <DragDropContext onDragEnd={_onDragEnd}>
                 <Bin />
                 <Wrapper boardCount={Object.keys(toDos).length}>
@@ -145,7 +134,6 @@ const App = () => {
                     </Boards>
                 </Wrapper>
             </DragDropContext>
-            <Space />
         </>
     );
 };

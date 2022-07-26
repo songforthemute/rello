@@ -5,6 +5,8 @@ import styled from "styled-components";
 import { modalState, toDoState } from "./atoms";
 
 const BackGround = styled.div`
+    top: 0;
+    left: 0;
     position: absolute;
     display: flex;
     justify-content: center;
@@ -18,7 +20,6 @@ const BackGround = styled.div`
 
 const Modal = styled.div`
     position: relative;
-    /* display: flex; */
     background: linear-gradient(
         150deg,
         rgba(218, 223, 233, 1) 0%,
@@ -190,7 +191,6 @@ const DetailModal = () => {
         setDetailModal(() => {
             return { modal: undefined, boardId: undefined, isShow: false };
         });
-        document.body.style.overflow = "";
     };
 
     const _onKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
@@ -208,7 +208,14 @@ const DetailModal = () => {
 
     // 컴포넌트 렌더링될 때 오토포커싱
     useEffect(() => {
+        const nowScrollY = window.scrollY;
+        document.body.style.overflow = "hidden";
+        window.scrollTo(0, nowScrollY);
         modalRef.current?.focus();
+        return () => {
+            document.body.style.overflow = "";
+            window.scrollTo(0, nowScrollY);
+        };
     }, []);
 
     return (
