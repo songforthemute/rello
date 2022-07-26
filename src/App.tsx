@@ -11,6 +11,7 @@ import DetailModal from "./components/DetailModal";
 
 const Wrapper = styled.div<{ boardCount: number }>`
     margin: 15px;
+    margin-top: 0;
     display: flex;
     width: 90vw;
     max-width: 1024px;
@@ -52,18 +53,18 @@ const Boards = styled.div`
 
 const Footer = styled.footer`
     position: absolute;
-    right: 60px;
     color: ${(props) => props.theme.boardColor};
     font-size: 16px;
     font-weight: 600;
     font-style: italic;
-    @media screen and (min-width: 769) {
-        bottom: 50px;
-    }
+    right: 60px;
+    bottom: 50px;
+
     @media screen and (max-width: 768px) {
-        font-size: 14px;
-        letter-spacing: -0.1px;
-        bottom: -10px;
+        right: 25px;
+        font-size: 12px;
+        letter-spacing: -0.2px;
+        bottom: 10px;
     }
 `;
 

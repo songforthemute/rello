@@ -7,7 +7,9 @@ import { InterfaceToDo, InterfaceToDoState, toDoState } from "./atoms";
 import DraggableCard from "./DraggableCard";
 
 const Wrapper = styled.div`
+    position: relative;
     padding-top: 10px;
+    padding-bottom: 30px;
     background-color: ${(props) => props.theme.boardColor};
     border-radius: 5px;
     width: 20rem;
@@ -41,7 +43,6 @@ const Title = styled.h2`
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
     @media screen and (max-width: 768px) {
         font-size: 18px;
     }
@@ -50,8 +51,9 @@ const Title = styled.h2`
     }
 `;
 
-const Btn = styled.button<{ l: string; r: string }>`
+const Btn = styled.button<{ b?: string; l: string; r: string }>`
     position: absolute;
+    bottom: ${(props) => props.b};
     left: ${(props) => props.l};
     right: ${(props) => props.r};
     width: 28px;
@@ -218,10 +220,15 @@ const Board = ({ toDos, boardId }: InterfaceBoardProps) => {
                 <Btn l="10px" r="initial" onClick={_onClickToDoInput}>
                     <div className="material-symbols-outlined">add</div>
                 </Btn>
-                <Btn l="initial" r="40px" onClick={_onClickTitleInput}>
+                <Btn l="initial" r="10px" onClick={_onClickTitleInput}>
                     <div className="material-symbols-outlined">edit</div>
                 </Btn>
-                <Btn l="initial" r="10px" onClick={_onClickRemoveBoard}>
+                <Btn
+                    b="10px"
+                    l="initial"
+                    r="10px"
+                    onClick={_onClickRemoveBoard}
+                >
                     <div className="material-symbols-outlined">close</div>
                 </Btn>
             </Title>
