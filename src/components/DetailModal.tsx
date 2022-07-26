@@ -1,4 +1,4 @@
-import { KeyboardEvent, useState } from "react";
+import { KeyboardEvent, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
@@ -197,8 +197,15 @@ const DetailModal = () => {
         return d.toLocaleString("ko-KR");
     };
 
+    const modalRef = useRef<HTMLDivElement | null>(null);
+
+    // 컴포넌트 렌더링될 때 오토포커싱
+    useEffect(() => {
+        modalRef.current?.focus();
+    }, []);
+
     return (
-        <BackGround tabIndex={0} onKeyDown={_onKeyDown}>
+        <BackGround tabIndex={0} onKeyDown={_onKeyDown} ref={modalRef}>
             <Modal>
                 <Btn r={"10px"} onClick={_onClickClose} type="button">
                     <span className="material-symbols-outlined">close</span>

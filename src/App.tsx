@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { LOCAL_KEY, modalState, toDoState } from "./components/atoms";
 import Board from "./components/Board";
-import { KeyboardEvent, useEffect } from "react";
+import { useEffect } from "react";
 import Bin from "./components/Bin";
 import AddForm from "./components/AddForm";
 import DetailModal from "./components/DetailModal";
@@ -32,15 +32,7 @@ const Boards = styled.div`
 const App = () => {
     const localToDos = useRecoilValue(toDoState);
     const [toDos, setToDos] = useRecoilState(toDoState);
-    const [detailModal, setDetailModal] = useRecoilState(modalState);
-
-    const _onKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
-        if (e.key === "Escape") {
-            setDetailModal(() => {
-                return { modal: undefined, boardId: undefined, isShow: false };
-            });
-        }
-    };
+    const detailModal = useRecoilValue(modalState);
 
     const _onDragEnd = (info: DropResult) => {
         const { destination, source } = info;
@@ -103,10 +95,16 @@ const App = () => {
     }, [localToDos]);
 
     return (
-        <div onKeyDown={detailModal.isShow ? _onKeyDown : undefined}>
+        <>
             <GlobalStyle />
 
-            {detailModal.isShow && <DetailModal />}
+            {detailModal.isShow && (
+                <>
+                    <div tabIndex={0} />
+                    <DetailModal />
+                    <div tabIndex={0} />
+                </>
+            )}
 
             <AddForm />
             <DragDropContext onDragEnd={_onDragEnd}>
@@ -119,7 +117,7 @@ const App = () => {
                     </Boards>
                 </Wrapper>
             </DragDropContext>
-        </div>
+        </>
     );
 };
 
