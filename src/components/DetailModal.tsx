@@ -182,13 +182,12 @@ const DetailModal = () => {
         setDetailModal(() => {
             return { modal: undefined, boardId: undefined, isShow: false };
         });
+        document.body.style.overflow = "";
     };
 
     const _onKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
         if (e.key === "Escape") {
-            setDetailModal(() => {
-                return { modal: undefined, boardId: undefined, isShow: false };
-            });
+            _onClickClose();
         }
     };
 

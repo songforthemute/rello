@@ -85,6 +85,7 @@ const DraggableCard = ({
             const data = toDos[boardId].find((toDo) => toDo.id === cardId);
             return { isShow: true, boardId, modal: data };
         });
+        document.body.style.overflow = "hidden";
     };
 
     return (
