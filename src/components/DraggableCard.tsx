@@ -1,6 +1,6 @@
 import React from "react";
 import { Draggable } from "react-beautiful-dnd";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { modalState, toDoState } from "./atoms";
 
@@ -64,21 +64,21 @@ const DraggableCard = ({
     index,
     boardId,
 }: InterfaceDraggableCardProps) => {
-    const [toDos, setToDos] = useRecoilState(toDoState);
+    const toDos = useRecoilValue(toDoState);
     const setDetailModal = useSetRecoilState(modalState);
-    const _onClickRemove = () => {
-        const ok = window.confirm(
-            "Are you sure you want to remove this card?\nYou cannot reverse this card."
-        );
-        ok &&
-            setToDos((current) => {
-                const removed = current[boardId].filter(
-                    (toDo) => toDo.id !== cardId
-                );
+    // const _onClickRemove = () => {
+    //     const ok = window.confirm(
+    //         "Are you sure you want to remove this card?\nYou cannot reverse this card."
+    //     );
+    //     ok &&
+    //         setToDos((current) => {
+    //             const removed = current[boardId].filter(
+    //                 (toDo) => toDo.id !== cardId
+    //             );
 
-                return { ...current, [boardId]: removed };
-            });
-    };
+    //             return { ...current, [boardId]: removed };
+    //         });
+    // };
 
     const _onClickDetail = () => {
         setDetailModal(() => {
@@ -105,11 +105,11 @@ const DraggableCard = ({
                                 more_horiz
                             </div>
                         </Btn>
-                        <Btn onClick={_onClickRemove}>
+                        {/* <Btn onClick={_onClickRemove}>
                             <div className="material-symbols-outlined">
                                 close
                             </div>
-                        </Btn>
+                        </Btn> */}
                     </span>
                 </Card>
             )}

@@ -80,13 +80,17 @@ const App = () => {
 
         // 카드 제거
         if (destination.droppableId === "bin") {
-            setToDos((current) => {
-                const sourceBoard = [...current[source.droppableId]];
+            const ok = window.confirm(
+                "Are you sure you want to remove this card?\nYou cannot reverse this card."
+            );
+            ok &&
+                setToDos((current) => {
+                    const sourceBoard = [...current[source.droppableId]];
 
-                sourceBoard.splice(source.index, 1);
+                    sourceBoard.splice(source.index, 1);
 
-                return { ...current, [source.droppableId]: sourceBoard };
-            });
+                    return { ...current, [source.droppableId]: sourceBoard };
+                });
 
             return;
         }
