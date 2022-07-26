@@ -25,7 +25,11 @@ const Wrapper = styled.div`
     }
     @media screen and (max-width: 425px) {
         width: 12rem;
-        min-height: 12rem;
+        min-height: 14rem;
+    }
+    @media screen and (max-width: 375px) {
+        width: 10rem;
+        min-height: 14rem;
     }
 `;
 
