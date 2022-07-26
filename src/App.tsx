@@ -12,6 +12,7 @@ import DetailModal from "./components/DetailModal";
 const Wrapper = styled.div<{ boardCount: number }>`
     margin: 15px;
     display: flex;
+    /* flex-direction: column; */
     width: 90vw;
     max-width: 1024px;
     margin: 0 auto;
@@ -50,6 +51,18 @@ const Boards = styled.div`
     }
 `;
 
+const Footer = styled.footer`
+    position: absolute;
+    bottom: 50px;
+    right: 60px;
+    color: ${(props) => props.theme.boardColor};
+    font-size: 16px;
+    font-weight: 600;
+    font-style: italic;
+    @media screen and (max-width: 425px) {
+        bottom: 10px;
+    }
+`;
 
 const App = () => {
     const localToDos = useRecoilValue(toDoState);
@@ -134,6 +147,7 @@ const App = () => {
                     </Boards>
                 </Wrapper>
             </DragDropContext>
+            <Footer>&copy; Rello {new Date().getFullYear()}</Footer>
         </>
     );
 };

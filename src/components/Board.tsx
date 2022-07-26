@@ -38,6 +38,12 @@ const Title = styled.h2`
     align-items: center;
     justify-content: center;
     position: relative;
+    @media screen and (max-width: 768px) {
+        font-size: 18px;
+    }
+    @media screen and (max-width: 425px) {
+        font-size: 16px;
+    }
 `;
 
 const Btn = styled.button<{ l: string; r: string }>`
