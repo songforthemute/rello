@@ -113,7 +113,20 @@ const Area = styled.div<InterfaceAreaProps>`
     transition: background-color 0.25s ease-in-out;
     padding: 10px;
     padding-bottom: 55px;
-    overflow: scroll;
+    overflow-y: auto;
+    ::-webkit-scrollbar {
+        width: 8px;
+    }
+    ::-webkit-scrollbar-thumb {
+        background-color: ${(props) => `${props.theme.bgColor}95`};
+        background-clip: padding-box;
+        border: 2px solid transparent;
+        border-radius: 10px;
+    }
+    ::-webkit-scrollbar-track {
+        background-color: transparent;
+        border-radius: 10px;
+    }
 
     @media screen and (max-width: 768px) {
         max-height: 20rem;
