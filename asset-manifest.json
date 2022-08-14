@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.js": "/rello/static/js/main.bb6ee507.js",
+    "index.html": "/rello/index.html",
+    "main.bb6ee507.js.map": "/rello/static/js/main.bb6ee507.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.bb6ee507.js"
+  ]
+}
