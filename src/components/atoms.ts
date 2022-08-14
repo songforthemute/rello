@@ -35,17 +35,3 @@ export const modalState = atom<InterfaceModal>({
         isShow: false,
     },
 });
-
-// {
-//     "To Do": [
-//         { id: 0, payload: "Cup Cake" },
-//         { id: 1, payload: "Donut" },
-//         { id: 2, payload: "Eclair" },
-//     ],
-//     Doing: [
-//         { id: 3, payload: "Frozen Yogurt" },
-//         { id: 4, payload: "Gingerbread" },
-//         { id: 5, payload: "Honeycomb" },
-//     ],
-//     Done: [{ id: 6, payload: "Ice Cream Sandwich" }],
-// }
