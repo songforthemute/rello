@@ -6,13 +6,13 @@ import { toDoState } from "./atoms";
 
 const ToggleBtn = styled.button<{ showForm: boolean }>`
     position: absolute;
-    top: 40px;
-    left: 120px;
+    top: 2rem;
+    left: 7rem;
     border: none;
     outline: none;
     background-color: rgba(180, 190, 195, 0.5);
-    width: 60px;
-    height: 60px;
+    width: 4rem;
+    height: 4rem;
     color: white;
     padding: auto;
     border-radius: 12px;
@@ -21,7 +21,7 @@ const ToggleBtn = styled.button<{ showForm: boolean }>`
     box-shadow: ${(props) =>
         props.showForm ? `inset ${props.theme.boxShadow}` : ""};
     div {
-        font-size: 36px;
+        font-size: 2rem;
         padding: auto;
     }
     /* desktop & laptop */
@@ -136,7 +136,7 @@ interface InterfaceForm {
     newBoard: string;
 }
 
-const AddBoard = () => {
+const AddBoardBtn = () => {
     const [showForm, setShowForm] = useState(false);
 
     const { register, setValue, handleSubmit } = useForm<InterfaceForm>();
@@ -177,4 +177,4 @@ const AddBoard = () => {
     );
 };
 
-export default AddBoard;
+export default AddBoardBtn;

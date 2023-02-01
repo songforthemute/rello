@@ -11,26 +11,14 @@ const Wrapper = styled.div`
     padding-top: 10px;
     background-color: ${(props) => props.theme.boardColor};
     border-radius: 5px;
-    width: 20rem;
-    min-height: 20rem;
+    width: 20vw;
+    aspect-ratio: 4 / 5;
+    overflow: scroll;
     box-shadow: ${(props) => props.theme.boxShadow};
     display: flex;
     flex-direction: column;
-    @media screen and (max-width: 1024px) {
-        width: 18rem;
-        min-height: 18rem;
-    }
-    @media screen and (max-width: 768px) {
-        width: 15rem;
-        min-height: 15rem;
-    }
     @media screen and (max-width: 425px) {
-        width: 12rem;
-        min-height: 14rem;
-    }
-    @media screen and (max-width: 375px) {
-        width: 10rem;
-        min-height: 14rem;
+        width: 40vw;
     }
 `;
 
@@ -39,7 +27,7 @@ const Title = styled.h2`
     margin-left: 20px;
     margin-bottom: 10px;
     font-weight: 600;
-    font-size: 20px;
+    font-size: 1rem;
     @media screen and (max-width: 768px) {
         font-size: 18px;
     }
@@ -114,9 +102,12 @@ const Area = styled.div<InterfaceAreaProps>`
     padding: 10px;
     padding-bottom: 55px;
     overflow-y: auto;
+
+    scrollbar-width: 8px;
     ::-webkit-scrollbar {
         width: 8px;
     }
+
     ::-webkit-scrollbar-thumb {
         background-color: ${(props) => `${props.theme.bgColor}95`};
         background-clip: padding-box;

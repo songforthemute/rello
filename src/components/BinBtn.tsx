@@ -3,15 +3,15 @@ import styled from "styled-components";
 
 const TrashBin = styled.button`
     position: absolute;
-    top: 40px;
-    left: 40px;
+    top: 2rem;
+    left: 2rem;
     border: none;
     outline: none;
     background-color: rgba(180, 190, 195, 0.5);
-    width: 60px;
-    height: 60px;
+    width: 4rem;
+    height: 4rem;
     border-radius: 12px;
-    font-size: 28px;
+    font-size: 2rem;
     padding: 0;
 
     /* tablet */
@@ -66,7 +66,7 @@ const Area = styled.div<{ isDraggingOver: boolean }>`
     }
 `;
 
-const Bin = () => {
+const BinBtn = () => {
     return (
         <TrashBin>
             <Droppable droppableId="bin">
@@ -85,4 +85,4 @@ const Bin = () => {
     );
 };
 
-export default Bin;
+export default BinBtn;

@@ -13,6 +13,7 @@ const BackGround = styled.div`
     align-items: center;
     z-index: 100;
     background-color: #60606096;
+    backdrop-filter: blur(2px);
     width: 100%;
     height: 100%;
     outline: 0;
@@ -20,12 +21,9 @@ const BackGround = styled.div`
 
 const Modal = styled.div`
     position: relative;
-    background: linear-gradient(
-        150deg,
-        rgba(218, 223, 233, 1) 0%,
-        rgba(220, 218, 233, 1) 100%
-    );
-    border-radius: 10px;
+    background: fixed
+        linear-gradient(150deg, rgba(218, 223, 233, 1), rgba(220, 218, 233, 1));
+    border-radius: 2.5px;
     box-shadow: ${(props) => props.theme.boxShadow};
     width: 60vw;
     min-height: 35vh;
@@ -47,7 +45,7 @@ const Btn = styled.button<{ r: string }>`
     right: ${(props) => props.r};
     outline: none;
     border: 0;
-    border-radius: 10px;
+    border-radius: 2.5px;
     width: 36px;
     height: 36px;
     padding: 5px;
@@ -71,9 +69,9 @@ const Area = styled.div`
 `;
 
 const Title = styled.div`
-    padding: 10px 20px;
-    font-size: 24px;
-    border-radius: 10px;
+    padding: 7.5px 15px;
+    font-size: 20px;
+    border-radius: 2.5px;
     background-color: ${(props) => props.theme.cardColor};
     margin-bottom: 20px;
 `;
@@ -87,8 +85,8 @@ const Subject = styled.h2`
     font-size: 14px;
     font-weight: 600;
     padding-bottom: 6px;
-    padding-left: 10px;
-    font-style: italic;
+    padding-left: 6px;
+    /* font-style: italic; */
 `;
 
 const Label = styled.label`
@@ -96,13 +94,12 @@ const Label = styled.label`
     font-size: 14px;
     font-weight: 600;
     margin-bottom: 6px;
-    padding-left: 10px;
-    font-style: italic;
+    padding-left: 6px;
 `;
 
 const Detail = styled.div`
-    padding: 20px;
-    border-radius: 10px;
+    padding: 15px;
+    border-radius: 2.5px;
     background-color: ${(props) => props.theme.cardColor};
 `;
 
@@ -111,17 +108,13 @@ const TitleInput = styled.input`
     width: 100%;
     border: 0;
     outline: 0;
-    border-radius: 10px;
+    border-radius: 2.5px;
     background-color: ${(props) => props.theme.cardColor};
     margin-bottom: 20px;
     transition: all 0.25s ease-in-out;
-    &:hover {
-        box-shadow: inset ${(props) => props.theme.boxShadow};
-        box-shadow: inset ${(props) => props.theme.boxShadow};
-    }
+    &:hover,
     &:focus,
     &:active {
-        border-bottom: 2px solid ${(props) => props.theme.bgColor};
         box-shadow: inset ${(props) => props.theme.boxShadow};
     }
 `;
@@ -131,7 +124,7 @@ const DetailsInput = styled.textarea`
     width: 100%;
     border: 0;
     outline: 0;
-    border-radius: 10px;
+    border-radius: 2.5px;
     background-color: ${(props) => props.theme.cardColor};
     margin-bottom: 20px;
     transition: all 0.25s ease-in-out;
@@ -141,12 +134,9 @@ const DetailsInput = styled.textarea`
     font-size: 13px;
     color: #252525;
     resize: vertical;
-    &:hover {
-        box-shadow: inset ${(props) => props.theme.boxShadow};
-    }
+    &:hover,
     &:focus,
     &:active {
-        border-bottom: 2px solid ${(props) => props.theme.bgColor};
         box-shadow: inset ${(props) => props.theme.boxShadow};
     }
 `;

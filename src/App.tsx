@@ -5,13 +5,11 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { LOCAL_KEY, modalState, toDoState } from "./components/atoms";
 import Board from "./components/Board";
 import { useEffect } from "react";
-import Bin from "./components/Bin";
-import AddBoard from "./components/AddBoard";
+import BinBtn from "./components/BinBtn";
+import AddBoardBtn from "./components/AddBoardBtn";
 import DetailModal from "./components/DetailModal";
 
 const Wrapper = styled.div<{ boardCount: number }>`
-    margin: 15px;
-    margin-top: 0;
     display: flex;
     width: 90vw;
     max-width: 1024px;
@@ -20,33 +18,17 @@ const Wrapper = styled.div<{ boardCount: number }>`
     align-items: center;
     height: ${(props) =>
         `${Math.max(100, Math.ceil(props.boardCount / 4) * 30 + 50)}vh`};
-    @media screen and (max-width: 1024px) {
-        height: ${(props) =>
-            `${Math.max(100, Math.ceil(props.boardCount / 3) * 40 + 50)}vh`};
-    }
-    @media screen and (max-width: 425px) {
-        height: ${(props) =>
-            `${Math.max(100, Math.ceil(props.boardCount / 2) * 30 + 50)}vh`};
-    }
 `;
 
 const Boards = styled.div`
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-auto-flow: row;
+    margin: auto;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    gap: 15px;
-    @media screen and (max-width: 1024px) {
-        gap: 20px 5px;
-        grid-template-columns: 1fr 1fr 1fr;
-    }
-    @media screen and (max-width: 768px) {
-        gap: 10px;
-        grid-template-columns: 1fr 1fr 1fr;
-    }
+    gap: 1rem;
     @media screen and (max-width: 425px) {
-        gap: 10px;
         grid-template-columns: 1fr 1fr;
     }
 `;
@@ -54,18 +36,12 @@ const Boards = styled.div`
 const Footer = styled.footer`
     position: absolute;
     color: ${(props) => props.theme.boardColor};
-    font-size: 16px;
-    font-weight: 600;
+    font-size: 1rem;
+    font-weight: 400;
     font-style: italic;
-    right: 60px;
-    bottom: 50px;
-
-    @media screen and (max-width: 768px) {
-        right: 25px;
-        font-size: 12px;
-        letter-spacing: -0.2px;
-        bottom: 10px;
-    }
+    letter-spacing: 1px;
+    right: 2rem;
+    top: 2rem;
 `;
 
 const App = () => {
@@ -141,12 +117,12 @@ const App = () => {
         <>
             <GlobalStyle />
 
-            {detailModal.isShow && <DetailModal />}
+            {detailModal.isShow ? <DetailModal /> : null}
 
-            <AddBoard />
+            <AddBoardBtn />
 
             <DragDropContext onDragEnd={_onDragEnd}>
-                <Bin />
+                <BinBtn />
                 <Wrapper boardCount={Object.keys(toDos).length}>
                     <Boards>
                         {Object.keys(toDos).map((id) => (

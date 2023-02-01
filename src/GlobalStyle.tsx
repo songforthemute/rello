@@ -36,7 +36,7 @@ const GlobalStyle = createGlobalStyle`
         font-family: 'Noto Sans KR', sans-serif;
         font-size: 13px;
         /* background-color: ${(props) => props.theme.bgColor}; */
-        background: linear-gradient(135deg, rgba(63,140,242,1) 0%, rgba(49,73,172,1) 100%);
+        background: fixed linear-gradient(135deg, rgba(63,140,242,1), rgba(49,73,172,1));
         color: #252525;
         @media screen and (max-width: 425px) {
             font-size: 12px;
